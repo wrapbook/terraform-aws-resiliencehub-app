@@ -49,3 +49,20 @@ variable "cross_account_role_arns" {
   type        = list(string)
   default     = []
 }
+
+variable "policy_tier" {
+  description = "The tier for the resiliency policy, ranging from the highest severity (`MissionCritial`) to lowest (`NonCritical`)"
+  type        = string
+  default     = "MissionCritical"
+
+  validation {
+    condition     = try(index(["MissionCritical", "Critical", "Important", "CoreServices", "NonCritical", "NotApplicable"], var.policy_tier), -1) != -1
+    error_message = "The policy_tier must be on of MissionCritical | Critical | Important | CoreServices | NonCritical | NotApplicable"
+  }
+
+}
+variable "tags" {
+  description = "Tags to be assigned to the resources"
+  type        = map(string)
+  default     = {}
+}

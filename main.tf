@@ -90,11 +90,13 @@ resource "awscc_resiliencehub_app" "app" {
     cross_account_role_arns = var.cross_account_role_arns
     invoker_role_name       = var.invoker_role_name
   }
+
+  tags = var.tags
 }
 
 resource "awscc_resiliencehub_resiliency_policy" "policy" {
   policy_name = "Policy-${random_id.session.id}"
-  tier        = "MissionCritical"
+  tier        = var.policy_tier
   policy = {
     AZ = {
       rto_in_secs = var.rto
@@ -113,4 +115,6 @@ resource "awscc_resiliencehub_resiliency_policy" "policy" {
       rpo_in_secs = var.rpo
     }
   }
+
+  tags = var.tags
 }
