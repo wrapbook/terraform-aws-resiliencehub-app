@@ -77,6 +77,8 @@ No modules.
 | <a name="input_s3_state_file_url"></a> [s3\_state\_file\_url](#input\_s3\_state\_file\_url) | An URL to s3-backend Terraform state-file | `string` | n/a | yes |
 | <a name="input_cross_account_role_arns"></a> [cross\_account\_role\_arns](#input\_cross\_account\_role\_arns) | The list of IAM Role ARNs to be used for querying purposes in other AWS accounts while importing resources and assessing your appliaction | `list(string)` | `[]` | no |
 | <a name="input_invoker_role_name"></a> [invoker\_role\_name](#input\_invoker\_role\_name) | The IAM role name that will be used by AWS Resilience Hub for read-only access to the application resources while running an assessment | `string` | `null` | no |
+| <a name="input_policy_tier"></a> [policy\_tier](#input\_policy\_tier) | The tier for the resiliency policy, ranging from the highest severity (`MissionCritial`) to lowest (`NonCritical`) | `string` | `"MissionCritical"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to be assigned to the resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
