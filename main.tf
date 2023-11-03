@@ -69,6 +69,9 @@ locals {
       name = resource["resource_name"]
     }
   ]
+
+  create_permission_model = var.permission_type != null && (var.invoker_role_name != null || var.cross_account_role_arns != null)
+  permission_model        = local.create_permission_model ? { type = var.permission_type, invoker_role_name = var.invoker_role_name, cross_account_role_arns = var.cross_account_role_arns } : null
 }
 
 resource "random_id" "session" {
@@ -85,11 +88,7 @@ resource "awscc_resiliencehub_app" "app" {
   })
   resource_mappings     = local.resource_mappings
   resiliency_policy_arn = awscc_resiliencehub_resiliency_policy.policy.policy_arn
-  permission_model = {
-    type                    = var.permission_type
-    cross_account_role_arns = var.cross_account_role_arns
-    invoker_role_name       = var.invoker_role_name
-  }
+  permission_model      = local.permission_model
 
   tags = var.tags
 }

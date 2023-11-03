@@ -37,6 +37,7 @@ variable "rpo" {
 variable "permission_type" {
   description = "How AWS Resilience Hub should scan the resources. Either `LegacyIAMUser` or `RoleBased`"
   type        = string
+  default     = null
 }
 
 variable "invoker_role_name" {
@@ -57,7 +58,7 @@ variable "policy_tier" {
 
   validation {
     condition     = try(index(["MissionCritical", "Critical", "Important", "CoreServices", "NonCritical", "NotApplicable"], var.policy_tier), -1) != -1
-    error_message = "The policy_tier must be on of MissionCritical | Critical | Important | CoreServices | NonCritical | NotApplicable"
+    error_message = "The policy_tier must be one of MissionCritical | Critical | Important | CoreServices | NonCritical | NotApplicable"
   }
 
 }
