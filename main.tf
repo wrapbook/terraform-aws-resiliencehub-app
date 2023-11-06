@@ -91,6 +91,22 @@ resource "awscc_resiliencehub_app" "app" {
   permission_model      = local.permission_model
 
   tags = var.tags
+
+  lifecycle {
+    # NOTES: Emmanuel Kala
+    # 
+    # This is a (nasty) workaround to ignore changes to the TerraformSourceName property on
+    # the ResourceMapping object. Attempts to update this property result in a HTTP
+    # 400 response. Since `ignore_changes` requires static references, and computational
+    # functions are not allowed here, I have created static list of 5 entries
+    ignore_changes = [
+      resource_mappings[0]["terraform_source_name"],
+      resource_mappings[1]["terraform_source_name"],
+      resource_mappings[2]["terraform_source_name"],
+      resource_mappings[3]["terraform_source_name"],
+      resource_mappings[4]["terraform_source_name"]
+    ]
+  }
 }
 
 resource "awscc_resiliencehub_resiliency_policy" "policy" {
