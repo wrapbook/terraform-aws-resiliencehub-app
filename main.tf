@@ -113,19 +113,19 @@ resource "awscc_resiliencehub_resiliency_policy" "policy" {
   policy_name = "Policy-${random_id.session.id}"
   tier        = var.policy_tier
   policy = {
-    AZ = {
+    az = {
       rto_in_secs = var.rto
       rpo_in_secs = var.rpo
     }
-    Hardware = {
+    hardware = {
       rto_in_secs = var.rto
       rpo_in_secs = var.rpo
     }
-    Software = {
+    software = {
       rto_in_secs = var.rto
       rpo_in_secs = var.rpo
     }
-    Region = {
+    region = {
       rto_in_secs = var.rto
       rpo_in_secs = var.rpo
     }

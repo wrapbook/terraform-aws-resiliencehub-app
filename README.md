@@ -40,7 +40,7 @@ A single resources is composed of:
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.72.0 |
 | <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | >= 0.21.0 |
@@ -49,7 +49,7 @@ A single resources is composed of:
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_awscc"></a> [awscc](#provider\_awscc) | >= 0.21.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | ~> 3.5.0 |
 
@@ -60,7 +60,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [awscc_resiliencehub_app.app](https://registry.terraform.io/providers/hashicorp/awscc/latest/docs/resources/resiliencehub_app) | resource |
 | [awscc_resiliencehub_resiliency_policy.policy](https://registry.terraform.io/providers/hashicorp/awscc/latest/docs/resources/resiliencehub_resiliency_policy) | resource |
 | [random_id.session](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
@@ -68,8 +68,8 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_app_components"></a> [app\_components](#input\_app\_components) | The application's app-components, including its resources | <pre>list(object({<br>    app_component_name = string<br>    app_component_type = string<br>    resources = list(object({<br>      resource_name            = string<br>      resource_type            = string<br>      resource_identifier      = string<br>      resource_identifier_type = string<br>      resource_region          = string<br>    }))<br>  }))</pre> | n/a | yes |
+| ---- | ----------- | ---- | ------- | :------: |
+| <a name="input_app_components"></a> [app\_components](#input\_app\_components) | The application's app-components, including its resources | <pre>list(object({<br/>    app_component_name = string<br/>    app_component_type = string<br/>    resources = list(object({<br/>      resource_name            = string<br/>      resource_type            = string<br/>      resource_identifier      = string<br/>      resource_identifier_type = string<br/>      resource_region          = string<br/>    }))<br/>  }))</pre> | n/a | yes |
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | The Application's name | `string` | n/a | yes |
 | <a name="input_rpo"></a> [rpo](#input\_rpo) | RPO across all failure metrics | `number` | n/a | yes |
 | <a name="input_rto"></a> [rto](#input\_rto) | RTO across all failure metrics | `number` | n/a | yes |
@@ -83,7 +83,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | The application created |
 | <a name="output_policy_id"></a> [policy\_id](#output\_policy\_id) | The policy created |
 <!-- END_TF_DOCS -->
