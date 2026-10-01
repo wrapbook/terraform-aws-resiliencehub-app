@@ -2,6 +2,7 @@ locals {
   declared_app_components = [
     for app_component in var.app_components :
     {
+      id   = app_component["app_component_name"]
       name = app_component["app_component_name"]
       type = app_component["app_component_type"]
       resourceNames = [
@@ -13,6 +14,7 @@ locals {
 
   app_common_app_component = [
     {
+      id   = "appcommon"
       name = "appcommon"
       type = "AWS::ResilienceHub::AppCommonAppComponent",
       resourceNames : []
@@ -63,7 +65,9 @@ locals {
     for resource in local.resources_list :
     {
       logicalResourceId = {
-        identifier = resource["resource_name"]
+        identifier        = resource["resource_name"]
+        logicalStackName  = null
+        resourceGroupName = null
       }
       type = resource["resource_type"]
       name = resource["resource_name"]
@@ -80,12 +84,18 @@ resource "random_id" "session" {
 
 resource "awscc_resiliencehub_app" "app" {
   name = var.app_name
-  app_template_body = jsonencode({
-    resources         = local.resources_json
-    appComponents     = local.app_components
-    excludedResources = {}
-    version           = 2
-  })
+  # version must serialize as 2.0 to match the canonical form AWS returns;
+  # jsonencode collapses 2.0 to 2, so the token is spliced in to avoid perpetual drift.
+  app_template_body = replace(
+    jsonencode({
+      resources         = local.resources_json
+      appComponents     = local.app_components
+      excludedResources = { logicalResourceIds = [] }
+      version           = "__RH_TEMPLATE_VERSION__"
+    }),
+    "\"__RH_TEMPLATE_VERSION__\"",
+    "2.0"
+  )
   resource_mappings     = local.resource_mappings
   resiliency_policy_arn = awscc_resiliencehub_resiliency_policy.policy.policy_arn
   permission_model      = local.permission_model
